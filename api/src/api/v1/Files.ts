@@ -841,7 +841,7 @@ export class Files {
         } catch(e) {}
         
         if (targetPeer) {
-          const msgIdToForward = typeof data !== 'undefined' && data ? data.id : (typeof message !== 'undefined' && message ? message.id : null);
+          const msgIdToForward = data ? data.id : null;
           if (msgIdToForward) {
             await req.tg.invoke(
               new Api.messages.ForwardMessages({
@@ -1024,7 +1024,7 @@ export class Files {
         } catch(e) {}
         
         if (targetPeer) {
-          const msgIdToForward = typeof data !== 'undefined' && data ? data.id : (typeof message !== 'undefined' && message ? message.id : null);
+          const msgIdToForward = message ? message.id : null;
           if (msgIdToForward) {
             await req.tg.invoke(
               new Api.messages.ForwardMessages({
