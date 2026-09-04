@@ -95,8 +95,8 @@ function App(): React.ReactElement {
   }, [])
 
   useEffect(() => {
-      setLoading(false)
-    }, [])
+    setLoading(false)
+  }, [])
 
   return (
     <LoadingScreen
