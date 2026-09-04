@@ -54,12 +54,11 @@
     "axios-parallel": "^1.1.2",
     "fastpriorityqueue": "0.7.4"
   },
-  "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts --openssl-
-  legacy-provider build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "scripts": {
+        "start": "react-scripts --openssl-legacy-provider start",
+        "build": "GENERATE_SOURCEMAP=false react-scripts --openssl-legacy-provider build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
       },
   "eslintConfig": {
     "extends": [
