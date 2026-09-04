@@ -37,16 +37,28 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "api/dist/index.js"
     },
     {
-      "src": "/",
-      "dest": "web/build/index.html"
+      "src": "/ping",
+      "dest": "api/dist/index.js"
     },
     {
-      "src": "/(.+)",
+      "src": "/security.txt",
+      "dest": "api/dist/index.js"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "web/build/static/$1"
+    },
+    {
+      "src": "/(.+\\..+)",
       "dest": "web/build/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "web/build/index.html"
     }
   ]
 }

@@ -97,9 +97,13 @@ app.use((req: Request, res: Response) => {
   }
 })
 
-app.listen(process.env.PORT || 4000, () => console.log(`Running at :${process.env.PORT || 4000}...`))
+if (!process.env.VERCEL) {
+  app.listen(process.env.PORT || 4000, () => console.log(`Running at :${process.env.PORT || 4000}...`))
+}
 
 console.log(listEndpoints(app))
 
 module.exports = app
+module.exports.default = app
 module.exports.handler = serverless(app)
+export default app

@@ -25,11 +25,19 @@ const [apiSecret, filesSecret] = keys?.toString()?.split('\n') || [
 
 if (!process.env.API_JWT_SECRET) {
   process.env.API_JWT_SECRET = apiSecret
-  writeFileSync(`${__dirname}/../../keys`, process.env.API_JWT_SECRET)
+  try {
+    writeFileSync(`${__dirname}/../../keys`, process.env.API_JWT_SECRET)
+  } catch (e) {
+    /* ignore read-only file system */
+  }
 }
 if (!process.env.FILES_JWT_SECRET) {
   process.env.FILES_JWT_SECRET = filesSecret
-  appendFileSync(`${__dirname}/../../keys`, `\n${process.env.FILES_JWT_SECRET}`)
+  try {
+    appendFileSync(`${__dirname}/../../keys`, `\n${process.env.FILES_JWT_SECRET}`)
+  } catch (e) {
+    /* ignore read-only file system */
+  }
 }
 
 export const API_JWT_SECRET = process.env.API_JWT_SECRET
