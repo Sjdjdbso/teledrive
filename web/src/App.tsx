@@ -40,7 +40,7 @@ function App(): React.ReactElement {
   const { switcher } = useThemeSwitcher()
   const { data } = useSWR('/utils/maintenance', fetcher)
   const { data: me, error: errorMe, mutate: mutateMe } = useSWRImmutable('/users/me', fetcher)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => document.querySelector('.App')?.scrollIntoView(), [pathname])
 
